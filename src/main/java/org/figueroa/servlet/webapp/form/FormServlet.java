@@ -15,57 +15,55 @@ import java.util.List;
 @WebServlet("/registro")
 public class FormServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws IOException, ServletException{
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         resp.setContentType("text/html");
-        String username=req.getParameter("username");
+        String username = req.getParameter("username");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
         String pais = req.getParameter("pais");
-        String [] lenguajes = req.getParameterValues("lenguajes");
-        String [] roles = req.getParameterValues("roles");
+        String[] lenguajes = req.getParameterValues("lenguajes");
+        String[] roles = req.getParameterValues("roles");
         String idioma = req.getParameter("idioma");
-       // String habilitar = req.getParameter("habilitar");
-        boolean habilitar = req.getParameter("habilitar") !=null && req.getParameter("habilitar").equals("on");
+        // String habilitar = req.getParameter("habilitar");
+        boolean habilitar = req.getParameter("habilitar") != null && req.getParameter("habilitar").equals("on");
         String secreto = req.getParameter("secreto");
 
 
         List<String> errores = new ArrayList<>();
 
-        if (username == null || username.isBlank()){
+        if (username == null || username.isBlank()) {
             errores.add("El Username es requerido!");
         }
-        if (password == null || password.isBlank()){
+        if (password == null || password.isBlank()) {
             errores.add("El password es requerido!");
         }
-        if (email == null || !email.contains("@")){
+        if (email == null || !email.contains("@")) {
             errores.add("El email es requerido!");
         }
-        if (pais == null || pais.equals("") || pais.equals(" ")){//equals es una forma de usar el isBlank
+        if (pais == null || pais.equals("") || pais.equals(" ")) {//equals es una forma de usar el isBlank
             errores.add("El país es requerido!");
         }
-        if (lenguajes == null || lenguajes.length == 0){
+        if (lenguajes == null || lenguajes.length == 0) {
             errores.add("El lenguje es requerido!");
         }
-        if (roles == null || roles.length == 0){
+        if (roles == null || roles.length == 0) {
             errores.add("El rol es requerido!");
         }
 
-        if (idioma == null){ //idioma es solo compararlo a null perque es un radioButton
+        if (idioma == null) { //idioma es solo compararlo a null perque es un radioButton
             System.out.println("El idioma es requerido");
         }
-
-        try (PrintWriter out = resp.getWriter()) {
-
-            out.println("<!Doctype html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<meta charset = \"UTF-O\">");
-            out.println("<title>Datos de Usuario</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Datos de Usuario</h1>");
-            out.println("<ul>");
-            if (errores.isEmpty()) {
+        if (errores.isEmpty()) {
+            try (PrintWriter out = resp.getWriter()) {
+                out.println("<!Doctype html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<meta charset = \"UTF-O\">");
+                out.println("<title>Datos de Usuario</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Datos de Usuario</h1>");
+                out.println("<ul>");
                 out.println("<li>");
                 out.println("<h3>Nombre: " + username + "</h3>");
                 out.println("</li>");
@@ -101,20 +99,22 @@ public class FormServlet extends HttpServlet {
                 out.println("<li>");
                 out.println("<h3>Secreto: " + secreto + "</h3>");
                 out.println("</li>");
-            }else {
-                errores.forEach(error ->{
+                out.println("</ul>");
+                out.println("</body>");
+                out.println("</html>");
+        }
+        } else {
+              /*  errores.forEach(error ->{
                     out.println("<li>"+error+"</li>");
                 });
-                out.println("<p><a href=\"/webapp-form/index.html\">enviar</a></p>");
-            }
-            out.println("</ul>");
-            out.println("</body>");
-            out.println("</html>");
+                out.println("<p><a href=\"/webapp-form/index.jsp\">enviar</a></p>");
+                */
+            req.setAttribute("errores", errores); // se pasan los atributos a la vista jsp
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         }
 
 
     }
-
 
 
 }
