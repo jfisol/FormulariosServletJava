@@ -8,9 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @WebServlet("/registro")
 public class FormServlet extends HttpServlet {
@@ -29,25 +27,25 @@ public class FormServlet extends HttpServlet {
         String secreto = req.getParameter("secreto");
 
 
-        List<String> errores = new ArrayList<>();
+        Map<String, String> errores = new HashMap<>();
 
         if (username == null || username.isBlank()) {
-            errores.add("El Username es requerido!");
+            errores.put("username","El Username es requerido!");
         }
         if (password == null || password.isBlank()) {
-            errores.add("El password es requerido!");
+            errores.put("password","El password es requerido!");
         }
         if (email == null || !email.contains("@")) {
-            errores.add("El email es requerido!");
+            errores.put("email","El email es requerido!");
         }
         if (pais == null || pais.equals("") || pais.equals(" ")) {//equals es una forma de usar el isBlank
-            errores.add("El país es requerido!");
+            errores.put("pais","El país es requerido!");
         }
         if (lenguajes == null || lenguajes.length == 0) {
-            errores.add("El lenguje es requerido!");
+            errores.put("lenguajes","El lenguje es requerido!");
         }
         if (roles == null || roles.length == 0) {
-            errores.add("El rol es requerido!");
+            errores.put("roles","El rol es requerido!");
         }
 
         if (idioma == null) { //idioma es solo compararlo a null perque es un radioButton
