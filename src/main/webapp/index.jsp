@@ -62,7 +62,13 @@ for(String error : errores.values()){
                 <option value="gt">Guatemala</option>
             </select>
         </div>
+       <%
+              if(errores != null && errores.containsKey("pais")){
+                   out.println("<small class ='alert alert-danger col sm-4' style='color : red;'>"+errores.get("pais")+"</small>");
+              }
+              %>
     </div>
+
     <div class="row mb-3">
         <label for="lenguajes" class="col-form-label col-sm-2">Lenguaje de Programación</label>
         <div class="col-sm-4">
@@ -74,37 +80,37 @@ for(String error : errores.values()){
         </div>
     </div>
     <div class="row mb-3">
-        <label>Rol</label>
-        <div class="form-check">
+        <label class="form-label col-sm-2">Rol</label>
+        <div class="form-check col-sm-2">
             <input type="checkbox" name="roles" value="ROL_admin" class="form-check-input">
             <label class="form-check-label">Administrador</label>
         </div>
-        <div class="form-check">
+        <div class="form-check col-sm-2">
             <input type="checkbox" name="roles" value="ROL_user" class="form-check-input">
             <label class="form-check-label">Usuario</label>
         </div>
-        <div class="form-check">
+        <div class="form-check col-sm-2">
             <input type="checkbox" name="roles" value="ROL_moderador" class="form-check-input">
             <label class="form-check-label">Moderador</label>
         </div>
     </div>
     <div class="row mb-3">
-        <label class="form-check-label">Idiomas</label>
-        <div class="form-check">
+        <label class="form-check-label col-sm-2">Idiomas</label>
+        <div class="form-check col-sm-2">
             <input type="radio" name="idioma" value="es" class="form-check-input">
             <label class="form-check-label">Español</label>
         </div>
-        <div class="form-check">
+        <div class="form-check col-sm-2">
             <input type="radio" name="idioma" value="en" class="form-check-input">
             <label class="form-check-label">Ingles</label>
         </div>
-        <div class="form-check">
+        <div class="form-check col-sm-2">
             <input type="radio" name="idioma" value="fr" class="form-check-input">
             <label class="form-check-label">Frances</label>
         </div>
     </div>
     <div class="row mb-3">
-        <div class="form-check">
+        <div class="form-check col-sm-2">
          <input type="checkbox" name="habilitar" id="habilitar" checked class="form-check-input">
         <label for="habilitar" class="form-check-label col-form-label col-sm-2">Habilitar</label>
         </div>
