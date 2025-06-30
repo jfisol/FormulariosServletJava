@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import javax.management.relation.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -48,7 +49,7 @@ public class FormServlet extends HttpServlet {
             errores.put("roles","El rol es requerido!");
         }
 
-        if (idioma == null) { //idioma es solo compararlo a null perque es un radioButton
+        if (idioma == null) { //idioma es solo compararlo a null porque es un radioButton
             System.out.println("El idioma es requerido");
         }
         if (errores.isEmpty()) {
@@ -83,9 +84,13 @@ public class FormServlet extends HttpServlet {
                 out.println("</li>");
                 out.println("<li>Roles: ");
                 out.println("<ul>");
-                Arrays.asList(roles).forEach(rol -> {
+                List<String> RolesList = Arrays.asList(roles);
+                for(String r: RolesList){
+                    out.println("<li>" + r + "</li>");
+                }
+                /*Arrays.asList(roles).forEach(rol -> {
                     out.println("<li>" + rol + "</li>");
-                });
+                });*/
                 out.println("</ul>");
                 out.println("</li>");
                 out.println("<li>");
